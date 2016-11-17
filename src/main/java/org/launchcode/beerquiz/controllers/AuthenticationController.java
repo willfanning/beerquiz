@@ -17,11 +17,20 @@ public class AuthenticationController extends AbstractController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registration(HttpServletRequest request, Model model) {
+		
+		String username, password;
+		
 		return "";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm() {
 		return "login";
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request) {
+		request.getSession().invalidate();
+		return "redirect:/";
 	}
 }
