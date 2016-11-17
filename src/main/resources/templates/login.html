@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
 <head>
-	<title>Registration</title>
+	<title>Log In</title>
 </head>
 <body>
-
-	<h1>Registration</h1>
+	
+	<h1>Log In</h1>
 
 	<form method="post">
 		<table>
@@ -19,14 +19,12 @@
 				<td><input type="password" name="password"></input></td>
 				<td class="error" th:text="${password_error}"></td>
 			</tr>
-			<tr>
-				<td>Verify Password</td>
-				<td><input type="password" name="verify"></input></td>
-				<td class="error" th:text="${verify_error}"></td>
-			</tr>
-		</table>
-		<button type="submit">Register</button>
-	</form>
 
+		</table>
+		<button type="submit">Log In</button>
+	</form>
+	
+	<p>Don't have an account? <a href="/register">Register</a> for one today!</p>
+	
 </body>
 </html>

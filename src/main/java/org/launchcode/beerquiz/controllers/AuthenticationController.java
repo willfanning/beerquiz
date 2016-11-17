@@ -19,4 +19,9 @@ public class AuthenticationController extends AbstractController {
 	public String registration(HttpServletRequest request, Model model) {
 		return "";
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginForm() {
+		return "login";
+	}
 }

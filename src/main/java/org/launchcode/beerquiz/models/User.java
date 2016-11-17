@@ -17,8 +17,10 @@ public class User extends AbstractEntity {
 	private String username;
 	private String pwHash;
 	private int maxScore;
+	
 	private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
+	// Registration constructor
 	public User(String username, String password) {
 		super();
 		
