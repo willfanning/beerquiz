@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+	<title>Log In</title>
+</head>
+<body>
+	
+	<h1>Log In</h1>
+
+	<form method="post">
+		<table>
+			<tr>
+				<td>Username</td>
+				<td><input type="text" name="username" th:value="${username}"></input></td>
+				<td class="error" th:text="${username_error}"></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="password" name="password"></input></td>
+				<td class="error" th:text="${password_error}"></td>
+			</tr>
+
+		</table>
+		<button type="submit">Log In</button>
+	</form>
+	
+	<p>Don't have an account? <a href="/register">Register</a> for one today!</p>
+	
+</body>
+</html>
