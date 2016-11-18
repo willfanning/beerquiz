@@ -19,7 +19,7 @@ import com.google.gson.JsonSyntaxException;
 
 public class QuizItem {
 	
-	private final String beerName, abv, ibu, description, breweryName, lat, lon, website, img, styleId, styleName;
+	private final String item, beerName, abv, ibu, description, breweryName, lat, lon, website, img, styleId, styleName;
 	
 	static JsonParser jp = new JsonParser();
 	
@@ -28,7 +28,12 @@ public class QuizItem {
     static final int STYLE_MAX = 170;
 	
 	
-	public QuizItem() throws JsonIOException, JsonSyntaxException, IOException {
+	public QuizItem(int item) throws JsonIOException, JsonSyntaxException, IOException {
+		
+		if (item == 0) this.item = "A"; 
+		else if (item == 1) this.item = "B"; 
+		else if (item == 2) this.item = "C"; 
+		else this.item = "D";
 		
 		int randomStyleId = QuizItem.STYLE_MIN + (int) (Math.random() * (QuizItem.STYLE_MAX - QuizItem.STYLE_MIN) + 1);
 		

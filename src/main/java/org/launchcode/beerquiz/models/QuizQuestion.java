@@ -8,18 +8,24 @@ import com.google.gson.JsonSyntaxException;
 
 public class QuizQuestion {
 	
-	private final int answer;
+	private final String answer;
 	ArrayList<QuizItem> items;
 	
 	public QuizQuestion(int difficulty) throws JsonIOException, JsonSyntaxException, IOException {
-		answer = ((int) (Math.random() * difficulty));
+		
+		int randNum = ((int) (Math.random() * difficulty));
+		
+		if (randNum == 0) this.answer = "A"; 
+		else if (randNum == 1) this.answer = "B"; 
+		else if (randNum == 2) this.answer = "C"; 
+		else this.answer = "D";
 		
 		for (int i = 0; i < difficulty; i++) {
-			items.add(new QuizItem());
+			items.add(new QuizItem(i));
 		}
 	}
 
-	public int getAnswer() {
+	public String getAnswer() {
 		return answer;
 	}
 
