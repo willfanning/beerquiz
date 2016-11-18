@@ -4,3 +4,4 @@
 src/main/java/org/launchcode/BrewerDy.java
 src/main/java/org/launchcode/BreweryDb.java
 *.class
+target/
