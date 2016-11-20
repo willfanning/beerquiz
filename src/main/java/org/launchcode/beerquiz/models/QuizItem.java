@@ -19,7 +19,7 @@ import com.google.gson.JsonSyntaxException;
 
 public class QuizItem {
 	
-	private final String item, beerName, abv, ibu, description, breweryName, lat, lon, website, img, styleId, styleName;
+	private String item, beerName, abv, ibu, description, breweryName, lat, lon, website, img, styleId, styleName;
 	
 	static JsonParser jp = new JsonParser();
 	
@@ -62,6 +62,8 @@ public class QuizItem {
 		styleId = Integer.toString(randomStyleId);
 		styleName = beer.get("style").getAsJsonObject().get("shortName").getAsString();	
 	}
+	
+	public String getItem() {return item;}
 
 	public String getBeerName() {return beerName;}
 

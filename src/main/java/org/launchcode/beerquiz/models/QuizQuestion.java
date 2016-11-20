@@ -8,8 +8,8 @@ import com.google.gson.JsonSyntaxException;
 
 public class QuizQuestion {
 	
-	private final String answer;
-	ArrayList<QuizItem> items;
+	private String answer;
+	private ArrayList<QuizItem> items;
 	
 	public QuizQuestion(int difficulty) throws JsonIOException, JsonSyntaxException, IOException {
 		
@@ -28,5 +28,13 @@ public class QuizQuestion {
 	public String getAnswer() {
 		return answer;
 	}
+
+	public ArrayList<QuizItem> getItems() {
+		return items;
+	}
+
+
+	
+	
 
 }
