@@ -6,5 +6,27 @@
 
 	<div th:replace="template :: navigation"></div>
 
+	<div th:if="${correct}">
+		<h1>Correct!</h1>
+		<hr />
+		<img th:src="${beer.img}" /> <a th:href="${beer.website}"
+			th:text="${beer.breweryName}"></a>
+
+		<form action="/quiz" method="get">
+			<input type="submit" value="Next Question" />
+		</form>
+
+	</div>
+
+	<div th:unless="${correct}">
+		<h1>Sorry!</h1>
+		<h3 th:text="'Final score: '+ ${score}"></h3>
+		<form action="/newquiz" method="get">
+			<input type="submit" value="Restart Quiz" />
+		</form>
+	</div>
+
+
+
 </body>
 </html>

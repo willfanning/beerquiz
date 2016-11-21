@@ -56,23 +56,39 @@ public class QuizController extends AbstractController {
 	@RequestMapping(value = "/quiz", method = RequestMethod.GET)
 	public String quizForm(HttpServletRequest request, Model model) {
 
+		// get current session and session attributes
 		HttpSession session = request.getSession();
 
+		// if quiz not in session, redirect to newquiz
 		if (session.getAttribute("quiz") == null) {
 			return "redirect:/newquiz";
 		}
 		Quiz quiz = (Quiz) session.getAttribute("quiz");
 		model.addAttribute("score", quiz.getScore());
+		
+		// if question already in progress, display that question
+		if (session.getAttribute("question") != null) {
+			Question question = (Question) session.getAttribute("question");
+			List<QuizItem> items = question.getItems();
+			model.addAttribute("items", items);
+			model.addAttribute("answer_abv", items.get(question.getAnswer()).getAbv());
+			model.addAttribute("answer_ibu", items.get(question.getAnswer()).getIbu());
+			
+			return "quiz_form";
+		}
+		
+		
 
-		Question q;
+		Question question;
 
 		try {
-			q = quiz.newQuestion();
-			List<QuizItem> items = q.getItems();
-			model.addAttribute("items", items);
+			question = quiz.newQuestion();
+			session.setAttribute("question", question);
 			
-			model.addAttribute("answer_abv", items.get(q.getAnswer()).getAbv());
-			model.addAttribute("answer_ibu", items.get(q.getAnswer()).getIbu());
+			List<QuizItem> items = question.getItems();
+			model.addAttribute("items", items);
+			model.addAttribute("answer_abv", items.get(question.getAnswer()).getAbv());
+			model.addAttribute("answer_ibu", items.get(question.getAnswer()).getIbu());
 			
 		} catch (JsonIOException | JsonSyntaxException | IOException e) {
 			// TODO Auto-generated catch block
@@ -83,7 +99,7 @@ public class QuizController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/quiz", method = RequestMethod.POST)
-	public String quiz(HttpServletRequest request) {
+	public String quiz(HttpServletRequest request, Model model) {
 		
 		HttpSession session = request.getSession();
 		
@@ -92,11 +108,33 @@ public class QuizController extends AbstractController {
 		
 		// get quiz question from session
 		Quiz quiz = (Quiz) session.getAttribute("quiz");
-		List<Question> questions = quiz.getQuestions();
-		Question q = questions.get(questions.size() - 1);
+		Question question = (Question) session.getAttribute("question");
 		
-		if (ans == q.getAnswer()) {
-			System.out.println("CORRECT");
+//		List<Question> questions = quiz.getQuestions();
+//		Question q = questions.get(questions.size() - 1);
+		
+		
+		// correct answer: increment score, add image and link to brewery, next question button
+		if (ans == question.getAnswer()) {
+			
+			session.removeAttribute("question");
+			
+			model.addAttribute("correct", true);
+			
+			quiz.setScore(quiz.getScore() + 1);
+			
+			QuizItem answer = question.getItems().get(ans);
+			
+			model.addAttribute("beer", answer);
+			
+		} else {
+			session.removeAttribute("quiz");
+			
+			model.addAttribute("score", quiz.getScore());
+			
+			// save quiz to db for leaderboard
+			
+			
 		}
 		
 		

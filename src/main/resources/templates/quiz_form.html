@@ -15,7 +15,7 @@
 
 		<ul>
 			<li th:each="item, iter : ${items}">
-				<input type="radio" th:value="${iter.index}" name="answer" /> 
+				<input type="radio" th:id="${iter.index}" th:value="${iter.index}" name="answer" /> 
 				<label th:text="' ' + ${item}"></label>
 			</li>
 		</ul>
