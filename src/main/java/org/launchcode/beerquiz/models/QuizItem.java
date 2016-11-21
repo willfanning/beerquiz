@@ -19,7 +19,7 @@ import com.google.gson.JsonSyntaxException;
 
 public class QuizItem {
 	
-	private String item, beerName, abv, ibu, description, breweryName, lat, lon, website, img, styleId, styleName;
+	private String beerName, abv, ibu, description, breweryName, lat, lon, website, img, styleId, styleName;
 	
 	static JsonParser jp = new JsonParser();
 	
@@ -28,12 +28,7 @@ public class QuizItem {
     static final int STYLE_MAX = 170;
 	
 	
-	public QuizItem(int item) throws JsonIOException, JsonSyntaxException, IOException {
-		
-		if (item == 0) this.item = "A"; 
-		else if (item == 1) this.item = "B"; 
-		else if (item == 2) this.item = "C"; 
-		else this.item = "D";
+	public QuizItem() throws JsonIOException, JsonSyntaxException, IOException {
 		
 		int randomStyleId = QuizItem.STYLE_MIN + (int) (Math.random() * (QuizItem.STYLE_MAX - QuizItem.STYLE_MIN) + 1);
 		
@@ -51,20 +46,36 @@ public class QuizItem {
 		
 		// get to parsing --> cheers!
 		beerName = beer.get("name").getAsString();
-		abv = beer.get("abv").getAsString().isEmpty() ? "n/a" :beer.get("abv").getAsString();
-		ibu = beer.get("ibu").getAsString().isEmpty() ? "n/a" :beer.get("ibu").getAsString();
-		description = beer.get("description").getAsString();
+		abv = beer.get("abv") == null ? "[n/a]" : beer.get("abv").getAsString();
+		ibu = beer.get("ibu") == null ? "[n/a]" : beer.get("ibu").getAsString();
+		description = beer.get("description") == null ? "n/a" :beer.get("description").getAsString();
 		breweryName = brewery.get("name").getAsString();
-		lat = brewery.get("locations").getAsJsonArray().get(0).getAsJsonObject().get("latitude").getAsString();
-		lon = brewery.get("locations").getAsJsonArray().get(0).getAsJsonObject().get("longitude").getAsString();
-		website = brewery.get("website").getAsString();
-		img = brewery.get("images").getAsJsonObject().get("mediumSquare").getAsString();
+		
+		if (brewery.get("locations") == null) {
+			lat = "";
+			lon = "";
+		} else {
+			lat = brewery.get("locations").getAsJsonArray().get(0).getAsJsonObject().get("latitude").getAsString();
+			lon = brewery.get("locations").getAsJsonArray().get(0).getAsJsonObject().get("longitude").getAsString();
+		}
+		
+		website = brewery.get("website") == null ? "" : brewery.get("website").getAsString();
 		styleId = Integer.toString(randomStyleId);
 		styleName = beer.get("style").getAsJsonObject().get("shortName").getAsString();	
+		
+		if (brewery.get("images") == null || brewery.get("images").getAsJsonObject().get("mediumSquare") == null) {
+			img = "";
+		} else {
+			img = brewery.get("images").getAsJsonObject().get("mediumSquare").getAsString();
+		}
+		
 	}
 	
-	public String getItem() {return item;}
-
+	@Override
+	public String toString() {
+		return breweryName + " - " + beerName + " (" + styleName + ")";
+	}
+	
 	public String getBeerName() {return beerName;}
 
 	public String getAbv() {return abv;}
@@ -86,5 +97,5 @@ public class QuizItem {
 	public String getStyleId() {return styleId;}
 
 	public String getStyleName() {return styleName;}
-
+	
 }
