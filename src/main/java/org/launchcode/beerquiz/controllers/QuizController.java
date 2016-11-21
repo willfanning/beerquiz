@@ -42,10 +42,6 @@ public class QuizController extends AbstractController {
 
 		HttpSession session = request.getSession();
 		
-		if (session.getAttribute("quiz") != null) {
-			return "redirect:/quiz";
-		}
-
 		// get request parameter
 		int difficulty = Integer.valueOf(request.getParameter("difficulty"));
 

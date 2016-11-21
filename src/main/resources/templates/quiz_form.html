@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
-<head>
-<title>Beer Quiz!</title>
+<head th:replace="template :: dochead">
 </head>
 <body>
 
+	<div th:replace="template :: navigation"></div>
+
 	<h1 th:text="Question + ' ' + (${score} + 1)"></h1>
+
 	
 	<p>This beer has an ABV of <span th:text="${answer_abv}"></span> % and <span th:text="${answer_ibu}"></span> IBUs</p>
 
 	<form action="/quiz" method="post">
 
-		<ul style="list-style: none">
+		<ul>
 			<li th:each="item, iter : ${items}">
 				<input type="radio" th:value="${iter.index}" name="answer" /> 
 				<label th:text="' ' + ${item}"></label>

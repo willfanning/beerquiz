@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
-<head>
-<title>Beer Quiz!</title>
+<head th:replace="template :: dochead">
 </head>
 <body>
+
+	<div th:replace="template :: navigation"></div>
+
 	<h1>Beer Quiz!</h1>
-	<a href="/newquiz">new quiz</a>
-	<a href="/login">login</a>
-	<a href="/logout">logout</a>
-	<a href="/register">register</a>
+
 	
 </body>
 </html>
