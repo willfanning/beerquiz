@@ -6,13 +6,15 @@
 
 	<div th:replace="template :: navigation"></div>
 
-	<div th:if="${correct}">
+	<div th:if="${correct}" th:object="${answer}">
 		<h1>Correct!</h1>
-		<hr />
-		<img th:src="${beer.img}" /> <a th:href="${beer.website}"
-			th:text="${beer.breweryName}"></a>
 
-		<form action="/quiz" method="get">
+		<img th:src="*{image}" />
+		<br/>
+		<a th:href="*{website}" th:text="*{breweryName}"></a>
+		<p th:text="*{beerName}"></p>
+		<p th:text="*{description}"></p>
+		<form action="/quiz">
 			<input type="submit" value="Next Question" />
 		</form>
 
@@ -20,8 +22,8 @@
 
 	<div th:unless="${correct}">
 		<h1>Sorry!</h1>
-		<h3 th:text="'Final score: '+ ${score}"></h3>
-		<form action="/newquiz" method="get">
+		<h3 th:text="'Final score: '+ ${quiz.score}"></h3>
+		<form action="quiz/newquiz" method="get">
 			<input type="submit" value="Restart Quiz" />
 		</form>
 	</div>

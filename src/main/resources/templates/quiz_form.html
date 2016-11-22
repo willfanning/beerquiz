@@ -6,21 +6,39 @@
 
 	<div th:replace="template :: navigation"></div>
 
-	<h1 th:text="Question + ' ' + (${score} + 1)"></h1>
+	<h1 th:text="Question + ' ' + (${quiz.score} + 1)"></h1>
+	<p class="error" th:if="${error}" th:text="${error}"></p>
 
+	<div th:object="${answer}">
+	<div
+		th:if="*{#strings.isEmpty(abv) and #strings.isEmpty(ibu)}">
+		<p>This beer has no listed stats. That makes this question pretty
+			bogus. I'm trying to make the quiz better. Good luck!</p>
+	</div>
+	<div th:if="*{!#strings.isEmpty(abv)}">
+		<p th:text="*{'This beer has an ABV of ' + abv + ' %'}"></p>
+	</div>
 	
-	<p>This beer has an ABV of <span th:text="${answer_abv}"></span> % and <span th:text="${answer_ibu}"></span> IBUs</p>
+	<div th:if="*{!#strings.isEmpty(ibu)}">
+		<p th:text="*{'This beer has ' + ibu + ' IBUs'}"></p>
+	</div>
+	
+	<div th:if="*{!#strings.isEmpty(styleIbuMin) and not #strings.isEmpty(styleIbuMax)}">
+		<p th:text="*{'Beers of this style typically have IBU values between ' + styleIbuMin + ' and ' + styleIbuMax}"></p>
+	</div>
+	
+	</div>
 
+	<hr />
 	<form action="/quiz" method="post">
+		<table>
+			<tr th:each="item, iter : ${items}">
+				<td><input type="radio" th:value="${iter.index}" name="answer" /></td>
+				<td th:text="${item}"></td>
+			</tr>
+		</table>
 
-		<ul>
-			<li th:each="item, iter : ${items}">
-				<input type="radio" th:id="${iter.index}" th:value="${iter.index}" name="answer" /> 
-				<label th:text="' ' + ${item}"></label>
-			</li>
-		</ul>
-
-		<button type="submit">Submit</button>
+		<input type="submit" value="Beer Me!" />
 
 	</form>
 

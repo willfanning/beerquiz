@@ -93,7 +93,7 @@ public class AuthenticationController extends AbstractController {
 		}
 
 		setUserInSession(request.getSession(), user);
-		return "redirect:/";
+		return "redirect:/quiz/newquiz";
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

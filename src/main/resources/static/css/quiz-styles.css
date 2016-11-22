@@ -31,12 +31,12 @@ textarea {
 
 input[type=submit] {
     font-size: 24px;
+    margin: 5px;
 }
 
 hr {
     margin: 20px auto;
 }
-
 
 nav ul {
     padding: 0;
@@ -52,3 +52,5 @@ nav ul li {
 nav #user-account {
     float: right;
 }
+
+

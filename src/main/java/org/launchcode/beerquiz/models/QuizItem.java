@@ -19,7 +19,8 @@ import com.google.gson.JsonSyntaxException;
 
 public class QuizItem {
 	
-	private String beerName, abv, ibu, description, breweryName, website, img, styleId, styleName, styleIbuMin, styleIbuMax;
+	private String beerName, abv, ibu, description, breweryName, website, styleId, styleName, styleIbuMin, styleIbuMax;
+	public String image;
 	
 	static JsonParser jp = new JsonParser();
 	
@@ -54,25 +55,25 @@ public class QuizItem {
 		breweryName = brewery.get("name").getAsString();
 		styleId = Integer.toString(randomStyleId);
 		styleName = style.get("shortName").getAsString();	
-		styleIbuMin = style.get("ibuMin").getAsString();
-		styleIbuMax = style.get("ibuMax").getAsString();
 		
 		// sometimes present
-		abv = beer.get("abv") == null ? "[ - ]" : beer.get("abv").getAsString();
-		ibu = beer.get("ibu") == null ? "[ - ]" : beer.get("ibu").getAsString();
-		description = beer.get("description") == null ? "n/a" :beer.get("description").getAsString();
+		styleIbuMin = style.get("ibuMin") == null ? "" : style.get("ibuMin").getAsString();
+		styleIbuMax = style.get("ibuMax") == null ? "" : style.get("ibuMax").getAsString();
+		abv = beer.get("abv") == null ? "" : beer.get("abv").getAsString();
+		ibu = beer.get("ibu") == null ? "" : beer.get("ibu").getAsString();
+		description = beer.get("description") == null ? "" :beer.get("description").getAsString();
 		website = brewery.get("website") == null ? "" : brewery.get("website").getAsString();
 				
-		if (brewery.get("images") == null || brewery.get("images").getAsJsonObject().get("mediumSquare") == null) {
-			img = "";
+		if (brewery.get("images") == null || brewery.get("images").getAsJsonObject().get("large") == null) {
+			image = "";
 		} else {
-			img = brewery.get("images").getAsJsonObject().get("mediumSquare").getAsString();
+			image = brewery.get("images").getAsJsonObject().get("large").getAsString();
 		}
 	}
 	
 	@Override
 	public String toString() {
-		return breweryName + " - " + beerName + " [ " + styleName + " ]";
+		return breweryName + " - " + beerName + "  (" + styleName + ")";
 	}
 	
 	public String getBeerName() {return beerName;}
@@ -87,10 +88,14 @@ public class QuizItem {
 
 	public String getWebsite() {return website;}
 
-	public String getImg() {return img;}
+	public String getImg() {return image;}
 
 	public String getStyleId() {return styleId;}
 
 	public String getStyleName() {return styleName;}
+
+	public String getStyleIbuMin() {return styleIbuMin;} 
+
+	public String getStyleIbuMax() {return styleIbuMax;}
 	
 }
