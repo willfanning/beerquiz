@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="template :: dochead">
+</head>
+<body>
+
+	<div th:replace="template :: navigation"></div>
+
+	<h1>Leaderboard</h1>
+	
+	<div th:each="leaderboard, iter : ${leaderboard}">
+		<h2 th:if="${iter.index} == 0" th:text="Easy"></h2>
+		<h2 th:if="${iter.index} == 1" th:text="Medium"></h2>
+		<h2 th:if="${iter.index} == 2" th:text="Hard"></h2>
+		<table>
+			<tr>
+				<th>Score</th>
+				<th>User</th>
+				<th>Date</th>
+			</tr>
+			<tr th:each="quiz, i : ${leaderboard}" th:object="${quiz}">
+					<td class="item" th:text="*{score}"></td>
+					<td class="item" th:text="*{quizTaker}"></td>
+					<td class="item" th:text="*{#dates.format(quizTime, 'dd-MMM-yyyy')}"></td>
+			</tr>
+		</table>
+		<hr/>
+	</div>
+
+</body>
+</html>

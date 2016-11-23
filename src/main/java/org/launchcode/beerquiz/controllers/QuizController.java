@@ -1,6 +1,8 @@
 package org.launchcode.beerquiz.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +24,18 @@ public class QuizController extends AbstractController {
 	@RequestMapping(value = "/")
 	public String index() {
 		return "index";
+	}
+	
+	@RequestMapping(value = "/leaderboard", method=RequestMethod.GET)
+	public String leaderboard(Model model) {
+		List<List<Quiz>> leaderboard = new ArrayList<>();
+		
+		for(int i = 2; i <=4; i++) {
+			leaderboard.add(quizDao.findTop10ByDifficultyOrderByScoreDesc(i));
+		}
+		model.addAttribute("leaderboard", leaderboard);
+	
+		return "leaderboard";
 	}
 
 	@RequestMapping(value = "quiz/newquiz", method = RequestMethod.GET)
