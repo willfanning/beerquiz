@@ -1,7 +1,6 @@
 package org.launchcode.beerquiz.controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,7 +47,7 @@ public class QuizController extends AbstractController {
 		int difficulty = Integer.valueOf(request.getParameter("difficulty"));
 
 		// initialize new quiz and add to session
-		Quiz quiz = new Quiz(difficulty);
+		Quiz quiz = new Quiz(difficulty, getUserFromSession(request.getSession()).getUsername());
 		session.setAttribute("quiz", quiz);
 
 		return "redirect:/quiz";
@@ -66,7 +65,6 @@ public class QuizController extends AbstractController {
 		if (quiz == null) {
 			return "redirect:quiz/newquiz";
 		}
-		
 		// quiz in session --> proceed to question
 		model.addAttribute("quiz", quiz);
 
@@ -85,12 +83,9 @@ public class QuizController extends AbstractController {
 				return "redirect:/";
 			}
 		}
-
-		List<QuizItem> items = question.getItems();
-		model.addAttribute("items", items);
-
-		QuizItem answer = items.get(question.getAnswer());
-		model.addAttribute("answer", answer);
+		// List<QuizItem> items, QuizItem answer
+		model.addAttribute("items", question.getItems());
+		model.addAttribute("answer", question.getItems().get(question.getAnswer()));
 
 		return "quiz_form";
 	}
@@ -100,11 +95,15 @@ public class QuizController extends AbstractController {
 
 		// get session and attributes
 		HttpSession session = request.getSession();
-		
 		Quiz quiz = (Quiz) session.getAttribute("quiz");
+		Question question = (Question) session.getAttribute("question");
+		
+		// if quiz not in session, redirect to newquiz
+		if (quiz == null) {
+			return "redirect:quiz/newquiz";
+		}
 		model.addAttribute("quiz", quiz);
 		
-		Question question = (Question) session.getAttribute("question");
 		if (question == null) {
 			return "redirect:/quiz";
 		}
@@ -128,8 +127,9 @@ public class QuizController extends AbstractController {
 		} else {
 			session.removeAttribute("quiz");
 			
-			// save quiz to db for leaderboard
-
+			if (quiz.getScore() > 0) {
+				quizDao.save(quiz);
+			}
 		}
 		session.removeAttribute("question");
 		return "quiz_result";

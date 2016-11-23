@@ -16,7 +16,6 @@ public class User extends AbstractEntity {
 
 	private String username;
 	private String pwHash;
-	private int maxScore;
 	
 	private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
@@ -30,7 +29,6 @@ public class User extends AbstractEntity {
 		
 		this.username = username;
 		this.pwHash = hashPassword(password);
-		this.maxScore = 0;
 	}
 	
 	// Spring empty constructor
@@ -58,16 +56,6 @@ public class User extends AbstractEntity {
 		this.pwHash = pwHash;
 	}
 	
-	@NotNull
-	@Column(name = "maxscore")
-	public int getMaxScore() {
-		return maxScore;
-	}
-
-	public void setMaxScore(int maxScore) {
-		this.maxScore = maxScore;
-	}
-
 	private static String hashPassword(String password) {		
 		return encoder.encode(password);
 	}

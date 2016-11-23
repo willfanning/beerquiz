@@ -5,35 +5,50 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
 
-
-public class Quiz {
+@Entity
+@Table(name = "quiz")
+public class Quiz extends AbstractEntity {
 	
-	private final int difficulty;
+	private int difficulty;
 	private int score;
-	private final Date quizTime;
-	private final  List<Question> questions;
+	private Date quizTime;
+	private String quizTaker;
 	
-	public Quiz(int diff) {
+	public Quiz() {}
+	
+	public Quiz(int diff, String username) {
+		super();
+		quizTaker = username;
 		difficulty = diff;
 		score = 0;
 		quizTime = new Date();
-		questions = new ArrayList<Question>();
 	}
 	
 	public Question newQuestion() throws JsonIOException, JsonSyntaxException, IOException {
-		Question q = new Question(difficulty);
-		questions.add(q);
-		return q;
+		return new Question(difficulty);
+		
 	}
 
+	@NotNull
+	@Column(name = "difficulty")
 	public int getDifficulty() {
 		return difficulty;
 	}
-
+	
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+	@NotNull
+	@Column(name = "score")
 	public int getScore() {
 		return score;
 	}
@@ -41,12 +56,24 @@ public class Quiz {
 	public void setScore(int score) {
 		this.score = score;
 	}
-
+	@NotNull
+	@Column(name = "quizTime")
 	public Date getQuizTime() {
 		return quizTime;
 	}
 
-	public List<Question> getQuestions() {
-		return questions;
-	}	
+	public void setQuizTime(Date quizTime) {
+		this.quizTime = quizTime;
+	}
+
+	@NotNull
+	@Column(name = "quizTaker")
+	public String getQuizTaker() {
+		return quizTaker;
+	}
+
+	public void setQuizTaker(String quizTaker) {
+		this.quizTaker = quizTaker;
+	}
+
 }

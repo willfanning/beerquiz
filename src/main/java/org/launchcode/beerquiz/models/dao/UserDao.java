@@ -18,6 +18,4 @@ public interface UserDao extends CrudRepository<User, Integer> {
     
     List<User> findAll();
     
-    // TODO findAllOrderByMaxScoreLimit10
-    
 }
