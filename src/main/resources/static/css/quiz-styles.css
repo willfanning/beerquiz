@@ -22,13 +22,6 @@ input[type=email] {
     padding: 2px;
 }
 
-textarea {
-    width: 400px;
-    height: 200px;
-    font-size: 17px;
-    font-family: monospace;
-}
-
 input[type=submit] {
     font-size: 24px;
     margin: 5px;
@@ -62,9 +55,5 @@ nav #user-account {
 tr:nth-child(even) .item {background-color: #f2f2f2}
 
 table {
-    width: 80%;
+    width: 75%;
 }
-
-
-
-

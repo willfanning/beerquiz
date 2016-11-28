@@ -10,23 +10,42 @@
 	<p class="error" th:if="${error}" th:text="${error}"></p>
 
 	<div th:object="${answer}">
-	<div
-		th:if="*{#strings.isEmpty(abv) and #strings.isEmpty(ibu)}">
-		<p>This beer has no listed stats. That makes this question pretty
-			bogus. I'm trying to make the quiz better. Good luck!</p>
-	</div>
-	<div th:if="*{!#strings.isEmpty(abv)}">
-		<p th:text="*{'This beer has an ABV of ' + abv + ' %'}"></p>
-	</div>
-	
-	<div th:if="*{!#strings.isEmpty(ibu)}">
-		<p th:text="*{'This beer has ' + ibu + ' IBUs'}"></p>
-	</div>
-	
-	<div th:if="*{!#strings.isEmpty(styleIbuMin) and not #strings.isEmpty(styleIbuMax)}">
-		<p th:text="*{'Beers of this style typically have IBU values between ' + styleIbuMin + ' and ' + styleIbuMax}"></p>
-	</div>
-	
+		<div th:if="*{#strings.isEmpty(abv) and #strings.isEmpty(ibu)}">
+			<p>This beer has no listed stats. That makes this question pretty
+				bogus. I'm trying to make the quiz better. Good luck!</p>
+		</div>
+		<div th:if="*{!#strings.isEmpty(abv)}">
+			<p th:text="*{'This beer has an ABV of ' + abv + ' %'}"></p>
+		</div>
+
+		<div th:if="*{!#strings.isEmpty(ibu)}">
+			<p th:text="*{'This beer has ' + ibu + ' IBUs'}"></p>
+		</div>
+
+		<!-- STYLE CHARACTERISTICS -->
+		<div
+			th:if="*{!#strings.isEmpty(styleAbvMin) or !#strings.isEmpty(styleIbuMin)}">
+			<span>Style Characteristics:</span>
+
+			<table style="width: 20%">
+				<tbody>
+					<!-- ABV -->
+					<tr
+						th:if="*{!#strings.isEmpty(styleAbvMin) and !#strings.isEmpty(styleAbvMax)}">
+						<td><b>ABV:</b></td>
+						<td th:text="*{styleAbvMin + '% - ' + styleAbvMax + '%'}"></td>
+					</tr>
+
+					<!--  IBU -->
+					<tr
+						th:if="*{!#strings.isEmpty(styleIbuMin) and !#strings.isEmpty(styleIbuMax)}">
+						<td><b>IBU:</b></td>
+						<td th:text="*{styleIbuMin + ' - ' + styleIbuMax}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
 	</div>
 
 	<hr />

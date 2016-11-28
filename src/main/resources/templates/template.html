@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
 <head th:fragment="dochead">
-	<link th:href="@{/css/normalize.css}" rel="stylesheet" />
-	<link th:href="@{/css/quiz-styles.css}" rel="stylesheet" />
-	<title>Beer Quiz</title>
+<link th:href="@{/css/normalize.css}" rel="stylesheet" />
+<link th:href="@{/css/quiz-styles.css}" rel="stylesheet" />
+<title>Beer Quiz</title>
 </head>
 
 <body>
 
-<nav th:fragment="navigation">
-	<ul id="user-account">
-	    <li><a href="/login">login</a></li>
-	    <li><a href="/logout">logout</a></li>
-	</ul>
-	<ul>
-        <li><a href="/">home</a></li>
-        <li><a href="quiz/newquiz">new quiz</a></li>
-        <li><a href="/leaderboard">leaderboard</a></li>
-    </ul>
-</nav>
+	<nav th:fragment="navigation">
+		<ul id="user-account">
+			<li><a href="/login">login</a></li>
+			<li><a href="/logout">logout</a></li>
+		</ul>
+		<ul>
+			<li><a href="/">home</a></li>
+			<li><a href="/quiz/newquiz">new quiz</a></li>
+			<li><a href="/leaderboard">leaderboard</a></li>
+		</ul>
+	</nav>
+
+	<div th:fragment="footer">
+		<a href="http://www.brewerydb.com"><img
+			src="http://s3.amazonaws.com/brewerydb/Powered-By-BreweryDB.png"
+			width="800" /></a>
+	</div>
 
 </body>
 </html>

@@ -19,7 +19,7 @@ import com.google.gson.JsonSyntaxException;
 public class QuizItem {
 
 	private String beerName, abv, ibu, description, breweryName, website, image, styleId, styleName, styleIbuMin,
-			styleIbuMax;
+			styleIbuMax, styleAbvMin, styleAbvMax;
 	// public String image;
 
 	static JsonParser jp = new JsonParser();
@@ -58,6 +58,8 @@ public class QuizItem {
 		styleName = style.get("shortName").getAsString();
 
 		// sometimes present
+		styleAbvMin = style.get("abvMin") == null ? "" : style.get("abvMin").getAsString();
+		styleAbvMax = style.get("abvMax") == null ? "" : style.get("abvMax").getAsString();
 		styleIbuMin = style.get("ibuMin") == null ? "" : style.get("ibuMin").getAsString();
 		styleIbuMax = style.get("ibuMax") == null ? "" : style.get("ibuMax").getAsString();
 		abv = beer.get("abv") == null ? "" : beer.get("abv").getAsString();
@@ -119,6 +121,14 @@ public class QuizItem {
 
 	public String getStyleIbuMax() {
 		return styleIbuMax;
+	}
+	
+	public String getStyleAbvMin() {
+		return styleAbvMin;
+	}
+	
+	public String getStyleAbvMax() {
+		return styleAbvMax;
 	}
 
 }

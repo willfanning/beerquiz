@@ -9,9 +9,8 @@
 	<div th:if="${correct}" th:object="${answer}">
 		<h1>Correct!</h1>
 
-		<img th:src="*{image}" />
-		<br/>
-		<a th:href="*{website}" th:text="*{breweryName}"></a>
+		<img th:src="*{image}" /> <br /> <a th:href="*{website}"
+			th:text="*{breweryName}"></a>
 		<p th:text="*{beerName}"></p>
 		<p th:text="*{description}"></p>
 		<form action="/quiz">
@@ -23,8 +22,11 @@
 	<div th:unless="${correct}">
 		<h1>Sorry!</h1>
 		<h3 th:text="'Final score: '+ ${quiz.score}"></h3>
-		<form action="quiz/newquiz" method="get">
+		<form action="/quiz/newquiz" method="get">
 			<input type="submit" value="Restart Quiz" />
+		</form>
+		<form action="/leaderboard" method="get">
+			<input type="submit" value="View Leaderboard" />
 		</form>
 	</div>
 

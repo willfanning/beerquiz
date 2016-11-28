@@ -7,9 +7,20 @@
 	<div th:replace="template :: navigation"></div>
 
 	<h1>Beer Quiz!</h1>
-	
+
 	<p class="error" th:if="${error}" th:text="{error}"></p>
 
-	
+	<p></p>
+
+	<div>
+		<h4>
+			Are you ready to take the beer quiz? <a href="/login">Login</a> or <a
+				href="/register">Register</a> to get started!
+		</h4>
+	</div>
+
+	<div th:replace="template :: footer"></div>
+
+
 </body>
 </html>

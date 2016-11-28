@@ -38,7 +38,7 @@ public class QuizController extends AbstractController {
 		return "leaderboard";
 	}
 
-	@RequestMapping(value = "quiz/newquiz", method = RequestMethod.GET)
+	@RequestMapping(value = "/quiz/newquiz", method = RequestMethod.GET)
 	public String newQuizForm(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
@@ -52,7 +52,7 @@ public class QuizController extends AbstractController {
 		return "newquiz";
 	}
 
-	@RequestMapping(value = "quiz/newquiz", method = RequestMethod.POST)
+	@RequestMapping(value = "/quiz/newquiz", method = RequestMethod.POST)
 	public String newQuiz(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
@@ -100,6 +100,7 @@ public class QuizController extends AbstractController {
 		// List<QuizItem> items, QuizItem answer
 		model.addAttribute("items", question.getItems());
 		model.addAttribute("answer", question.getItems().get(question.getAnswer()));
+		System.out.println(question.getAnswer());
 
 		return "quiz_form";
 	}
@@ -150,16 +151,3 @@ public class QuizController extends AbstractController {
 	}
 
 }
-
-/*
- * Quiz Start Page: select difficulty start quiz --> quizContinue = true score =
- * 0
- * 
- * Quiz Question Page: display abv and ibu of correct answer list options
- * A/B/C/D select item
- *
- * Process Answer if correct --> score += 1 if wrong -- > quizContinue = false
- * 
- * Display Result if correct --> next question if wrong --> try again/ restart
- * quiz
- */
