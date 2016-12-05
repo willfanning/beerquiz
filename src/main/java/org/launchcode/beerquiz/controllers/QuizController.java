@@ -43,8 +43,7 @@ public class QuizController extends AbstractController {
 
 		HttpSession session = request.getSession();
 
-		// if quiz already in progress, remove from session and present newquiz
-		// form
+		// if quiz already in progress, remove from session and present new quiz form
 		if (session.getAttribute("quiz") != null) {
 			session.removeAttribute("quiz");
 			session.removeAttribute("question");
@@ -75,7 +74,7 @@ public class QuizController extends AbstractController {
 		Quiz quiz = (Quiz) session.getAttribute("quiz");
 		Question question = (Question) session.getAttribute("question");
 
-		// if quiz not in session, redirect to newquiz
+		// if quiz not in session, redirect to new quiz
 		if (quiz == null) {
 			return "redirect:quiz/newquiz";
 		}
@@ -113,10 +112,13 @@ public class QuizController extends AbstractController {
 		Quiz quiz = (Quiz) session.getAttribute("quiz");
 		Question question = (Question) session.getAttribute("question");
 		
-		// if quiz not in session, redirect to newquiz
-		if (quiz == null) {
+		// if quiz not in session, redirect to new quiz
+		/*
+		 * if (quiz == null) {
 			return "redirect:quiz/newquiz";
-		}
+			}
+		 */
+		
 		model.addAttribute("quiz", quiz);
 		
 		if (question == null) {

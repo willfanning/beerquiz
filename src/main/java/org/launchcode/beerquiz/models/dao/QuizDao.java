@@ -17,7 +17,5 @@ public interface QuizDao extends CrudRepository<Quiz, Integer>{
 	List<Quiz> findByQuizTaker(String quizTaker);
 	
 	List<Quiz> findTop10ByDifficultyOrderByScoreDesc(int difficulty);	
-	
-	// TODO: find top 10 scores by difficulty, descending order
 
 }
