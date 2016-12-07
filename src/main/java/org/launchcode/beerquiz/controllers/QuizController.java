@@ -55,8 +55,6 @@ public class QuizController extends AbstractController {
 	public String newQuiz(HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
-
-		// get request parameter
 		int difficulty = Integer.valueOf(request.getParameter("difficulty"));
 
 		// initialize new quiz and add to session
