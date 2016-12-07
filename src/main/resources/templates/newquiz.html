@@ -6,17 +6,31 @@
 
 	<div th:replace="template :: navigation"></div>
 
-	<h1>New Quiz</h1>
-	
-	<form method="post">
-		<h3>Select Difficulty</h3>
-		<select name="difficulty">
-			<option value="2">Easy (2)</option>
-			<option value="3">Medium (3)</option>
-			<option value="4">Hard (4)</option>
-		</select>
-		<button type="submit">Start Quiz</button>
-	</form>
-	
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10">
+				<h1>New Quiz 🍺</h1>
+				<h3>Select Difficulty</h3>
+				<p class="text-info">Difficulty (#) denotes number of multiple
+					choice options for each question:</p>
+
+				<div class="form-group">
+					<form method="post">
+						<select class="form-control" name="difficulty">
+							<option value="2">Easy (2)</option>
+							<option value="3">Medium (3)</option>
+							<option value="4">Hard (4)</option>
+						</select> <br />
+						<div class="text-center">
+							<button class="btn btn-default" type="submit">Start Quiz</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-sm-1"></div>
+		</div>
+	</div>
+
 </body>
 </html>

@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
+
 <head th:fragment="dochead">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link th:href="@{/css/normalize.css}" rel="stylesheet" />
-<link th:href="@{/css/quiz-styles.css}" rel="stylesheet" />
 <title>Beer Quiz</title>
 </head>
 
 <body>
-
-	<nav th:fragment="navigation">
-		<ul id="user-account">
-			<li><a href="/login">login</a></li>
-			<li><a href="/logout">logout</a></li>
-		</ul>
-		<ul>
-			<li><a href="/">home</a></li>
-			<li><a href="/quiz/newquiz">new quiz</a></li>
-			<li><a href="/leaderboard">leaderboard</a></li>
-		</ul>
+	<nav class="navbar navbar-default" th:fragment="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Beer Quiz!</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="/">Home</a></li>
+				<li><a href="/quiz/newquiz">New Quiz</a></li>
+				<li><a href="/leaderboard">Leaderboard</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/register">Sign Up</a></li>
+				<li><a href="/login">Login</a></li>
+				<li><a href="/logout">Logout</a></li>
+			</ul>
+		</div>
 	</nav>
 
 	<div th:fragment="footer">
-		<a href="http://www.brewerydb.com"><img
+		<a href="http://www.brewerydb.com"><img class="img-responsive"
 			src="http://s3.amazonaws.com/brewerydb/Powered-By-BreweryDB.png"
 			width="800" /></a>
 	</div>

@@ -5,27 +5,42 @@
 <body>
 
 	<div th:replace="template :: navigation"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10">
+				<h1>Leaderboard 🍺</h1>
 
-	<h1>Leaderboard</h1>
+				<div th:each="leaderboard, i : ${leaderboard}">
+					<!-- TABLE HEADER FOR DIFFICULTY -->
+					<h2 th:if="${i.index} == 0" th:text="Easy"></h2>
+					<h2 th:if="${i.index} == 1" th:text="Medium"></h2>
+					<h2 th:if="${i.index} == 2" th:text="Hard"></h2>
+					<!-- BEGIN TABLE -->
+					<table class="table-striped table-condensed" width="100%">
+						<!-- COLUMN NAMES -->
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>User</th>
+								<th>Score</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<!-- TABLE ROWS -->
+						<tr th:each="quiz, i : ${leaderboard}" th:object="${quiz}">
+							<td th:text="${i.index} + 1"></td>
+							<td th:text="*{quizTaker}"></td>
+							<td th:text="*{score}"></td>
+							<td th:text="*{#dates.format(quizTime, 'MMM dd, yyyy')}"></td>
+						</tr>
+					</table>
+					<hr />
+				</div>
+			</div>
+			<div class="col-sm-1"></div>
+		</div>
 
-	<div th:each="leaderboard, iter : ${leaderboard}">
-		<h2 th:if="${iter.index} == 0" th:text="Easy"></h2>
-		<h2 th:if="${iter.index} == 1" th:text="Medium"></h2>
-		<h2 th:if="${iter.index} == 2" th:text="Hard"></h2>
-		<table>
-			<tr>
-				<th>Score</th>
-				<th>User</th>
-				<th>Date</th>
-			</tr>
-			<tr th:each="quiz, i : ${leaderboard}" th:object="${quiz}">
-				<td class="item" th:text="*{score}"></td>
-				<td class="item" th:text="*{quizTaker}"></td>
-				<td class="item" th:text="*{#dates.format(quizTime, 'dd-MMM-yyyy')}"></td>
-			</tr>
-		</table>
-		<hr />
 	</div>
-
 </body>
 </html>

@@ -5,22 +5,27 @@
 <body>
 
 	<div th:replace="template :: navigation"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10">
+				<h1>Beer Quiz! 🍺</h1>
+				<p class="bg-danger" th:if="${error}" th:text="{error}"></p>
 
-	<h1>Beer Quiz!</h1>
+				<div>
+					<h4>Are you ready to take the beer quiz?</h4>
+					<!-- MAYBE SOME DESCRIPTION AND AD COPY KINDA STUFF -->
+					<p class="lead">
+						<a href="/login">Login</a> or <a href="/register">Register</a> to
+						get started!
+					</p>
 
-	<p class="error" th:if="${error}" th:text="{error}"></p>
+				</div>
 
-	<p></p>
-
-	<div>
-		<h4>
-			Are you ready to take the beer quiz? <a href="/login">Login</a> or <a
-				href="/register">Register</a> to get started!
-		</h4>
+				<div th:replace="template :: footer"></div>
+			</div>
+			<div class="col-sm-1"></div>
+		</div>
 	</div>
-
-	<div th:replace="template :: footer"></div>
-
-
 </body>
 </html>

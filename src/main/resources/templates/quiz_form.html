@@ -6,61 +6,66 @@
 
 	<div th:replace="template :: navigation"></div>
 
-	<h1 th:text="Question + ' ' + (${quiz.score} + 1)"></h1>
-	<p class="error" th:if="${error}" th:text="${error}"></p>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10">
 
-	<!--  BEER STATS -->
-	<div th:object="${answer}">
-		<div th:if="*{#strings.isEmpty(abv) and #strings.isEmpty(ibu)}">
-			<p>This beer has no listed stats. That makes this question pretty
-				bogus. I'm trying to make the quiz better. Good luck!</p>
+				<h1 th:text="Question + ' ' + (${quiz.score} + 1)"></h1>
+
+				<!--  BEER STATS -->
+				<div th:object="${answer}">
+					<div th:if="*{#strings.isEmpty(abv) and #strings.isEmpty(ibu)}">
+						<p>This beer has no listed stats. That makes this question
+							pretty bogus. I'm trying to make the quiz better. Good luck!</p>
+					</div>
+					<div th:if="*{!#strings.isEmpty(abv)}">
+						<p th:text="*{'This beer has an ABV of ' + abv + ' %'}"></p>
+					</div>
+
+					<div th:if="*{!#strings.isEmpty(ibu)}">
+						<p th:text="*{'This beer has ' + ibu + ' IBUs'}"></p>
+					</div>
+
+					<!-- STYLE CHARACTERISTICS -->
+					<div
+						th:if="*{!#strings.isEmpty(styleAbvMin) or !#strings.isEmpty(styleIbuMin)}">
+						<span>Beers of this style often have the following
+							characteristics:</span>
+
+						<table class="table table-condensed" style="width: 30%">
+							<tbody>
+								<!-- ABV -->
+								<tr
+									th:if="*{!#strings.isEmpty(styleAbvMin) and !#strings.isEmpty(styleAbvMax)}">
+									<td><strong>ABV</strong></td>
+									<td th:text="*{styleAbvMin + '% - ' + styleAbvMax + '%'}"></td>
+								</tr>
+								<!--  IBU -->
+								<tr
+									th:if="*{!#strings.isEmpty(styleIbuMin) and !#strings.isEmpty(styleIbuMax)}">
+									<td><strong>IBU</strong></td>
+									<td th:text="*{styleIbuMin + ' - ' + styleIbuMax}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<hr />
+
+				<form action="/quiz" method="post">
+					<div class="radio" th:each="item, iter : ${items}">
+						<input type="radio" name="answer" th:value="${iter.index}"
+							th:text="${item}" />
+					</div>
+
+					<input class="btn btn-default" type="submit" value="Beer Me!" />
+				</form>
+
+			</div>
+			<div class="col-sm-1"></div>
 		</div>
-		<div th:if="*{!#strings.isEmpty(abv)}">
-			<p th:text="*{'This beer has an ABV of ' + abv + ' %'}"></p>
-		</div>
-
-		<div th:if="*{!#strings.isEmpty(ibu)}">
-			<p th:text="*{'This beer has ' + ibu + ' IBUs'}"></p>
-		</div>
-
-		<!-- STYLE CHARACTERISTICS -->
-		<div
-			th:if="*{!#strings.isEmpty(styleAbvMin) or !#strings.isEmpty(styleIbuMin)}">
-			<span>Beers of this style often have the following characteristics:</span>
-
-			<table style="width: 20%">
-				<tbody>
-					<!-- ABV -->
-					<tr
-						th:if="*{!#strings.isEmpty(styleAbvMin) and !#strings.isEmpty(styleAbvMax)}">
-						<td><b>ABV:</b></td>
-						<td th:text="*{styleAbvMin + '% - ' + styleAbvMax + '%'}"></td>
-					</tr>
-
-					<!--  IBU -->
-					<tr
-						th:if="*{!#strings.isEmpty(styleIbuMin) and !#strings.isEmpty(styleIbuMax)}">
-						<td><b>IBU:</b></td>
-						<td th:text="*{styleIbuMin + ' - ' + styleIbuMax}"></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
 	</div>
-
-	<hr />
-	<form action="/quiz" method="post">
-		<table>
-			<tr th:each="item, iter : ${items}">
-				<td><input type="radio" th:value="${iter.index}" name="answer" /></td>
-				<td th:text="${item}"></td>
-			</tr>
-		</table>
-
-		<input type="submit" value="Beer Me!" />
-
-	</form>
 
 </body>
 </html>
